@@ -8,6 +8,10 @@ class ProductoService {
     }
     return await productoDao.createProducto(productoData);
   } 
+  async getAllProductos(tenantId) {  
+    console.log(tenantId,"a")
+    return await productoDao.getAllProductos(tenantId);
+  } 
 }
 
 module.exports = new ProductoService();

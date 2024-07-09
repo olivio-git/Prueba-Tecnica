@@ -11,6 +11,16 @@ class ProductoController {
       res.status(400).json({ message: error.message });
     }
   } 
+  async getAllProductos(req, res) {
+    const { tenantId } = req;  
+    try {
+      console.log(tenantId)
+      const producto = await productoService.getAllProductos(tenantId);
+      response(res,200,producto);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }  
 }
 
 module.exports = new ProductoController();
