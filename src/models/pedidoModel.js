@@ -1,18 +1,22 @@
- const mongoose = require("mongoose");
- 
-const pedidoSchema = new mongoose.Schema({
-    tenantId: { type: String, required: true },
+const mongoose = require("mongoose");
+
+const createSchemaPedido = (connection) => {
+  const pedidoSchema = new mongoose.Schema({ 
     cliente: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Cliente'
+      type: String
     },
     product: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Product'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
     },
     cantidad: {
-        type: Number,
+      type: Number,
+    },
+    totalPrice:{
+        type: Number
     }
-});
-
-const Pedido = mongoose.model('Pedido', pedidoSchema);
-
-module.exports = Pedido; 
+  });
+  return connection.model('Pedido', pedidoSchema);
+};
+ 
+module.exports = createSchemaPedido;

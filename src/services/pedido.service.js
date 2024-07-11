@@ -1,19 +1,20 @@
 const { ClientError } = require ('../../config/utils/errors');
-const pedidoDao = require ('../daos/PedidoDao');
+const PedidoDao = require ('../daos/PedidoDao');
 
-class PedidoService {
-  async createPedido(pedidoData) { 
+class PedidoService { 
+  async createPedido(pedidoData,PedidoModel,ProductoModel) { 
+
     if (!pedidoData) {
         throw new ClientError("Pedido data is required", 400);
     }
-    return await pedidoDao.createPedido(pedidoData);
+    return await PedidoDao.createPedido(pedidoData,PedidoModel,ProductoModel);
   }
 
-  async getPedido(id,tenantId) {
-    return await pedidoDao.getPedido(id,tenantId);
+  async getPedido(id,PedidoModel) {
+    return await PedidoDao.getPedido(id,PedidoModel);
   }
-  async getAllPedidos(tenantId) {
-    return await pedidoDao.getAllPedidos(tenantId);
+  async getAllPedidos(PedidoModel) {
+    return await PedidoDao.getAllPedidos(PedidoModel);
   }
 }
 

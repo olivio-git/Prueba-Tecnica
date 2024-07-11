@@ -1,18 +1,18 @@
- const mongoose = require("mongoose");
- 
-const productoSchema= new mongoose.Schema({
-    tenantId: { type: String, required: true },
+const mongoose = require("mongoose");
+
+const createSchemaProducto = (connection) => {
+  const productoSchema = new mongoose.Schema({
     nombre: {
-        type: String,
-    }, 
+      type: String,
+    },
     precio: {
-        type: Number,
+      type: Number,
     },
     stock: {
-        type: Number,
-    }
-});
+      type: Number,
+    },
+  });
+  return connection.model("Producto", productoSchema);
+};
 
-const Producto = mongoose.model('Producto', productoSchema);
-
-module.exports = Producto;
+module.exports = createSchemaProducto;

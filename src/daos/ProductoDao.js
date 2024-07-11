@@ -1,13 +1,11 @@
-const Producto = require("../models/productoModel");
 class ProductoDao {
-
-  async createProducto(productoData) {
-    const producto = new Producto(productoData);
+  async createProducto(productoData, ProductoModel) {
+    const producto = new ProductoModel(productoData);
     return await producto.save();
   }
 
-  async getAllProductos(tenantId) { 
-    return await Producto.find({tenantId});
+  async getAllProductos(ProductoModel) { 
+    return await ProductoModel.find();
   }
 }
 

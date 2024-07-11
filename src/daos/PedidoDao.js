@@ -1,16 +1,22 @@
-const Pedido = require("../models/pedidoModel");
 class PedidoDao {
-  async createPedido(pedidoData) {
-    const pedido = new Pedido(pedidoData);
+  async createPedido(pedidoData,PedidoModel,ProductoModel) {
+    const producto = await ProductoModel.findById(pedidoData.product);
+    if (!producto) {
+      throw new Error("Product not found");
+    } 
+    const totalPrice = producto.precio*pedidoData.cantidad;
+    producto.stock = producto.stock - pedidoData.cantidad; 
+    await producto.save();
+    const pedido = new PedidoModel({...pedidoData,totalPrice:totalPrice}); 
     return await pedido.save();
   }
 
-  async getPedido(id,tenantId) { 
-    return await Pedido.find({_id: id , tenantId: tenantId});
+  async getPedido(id,PedidoModel) {
+    return await PedidoModel.findById(id);
   }
 
-  async getAllPedidos(tenantId) {
-    return await Pedido.find({ tenantId});
+  async getAllPedidos(PedidoModel) {
+    return await PedidoModel.find();
   }
 }
 
