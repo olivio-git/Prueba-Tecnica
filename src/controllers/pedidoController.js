@@ -32,6 +32,8 @@ class PedidoController {
     }
   }
   async getAllPedidos(req, res) {
+    console.log(req.user);
+    
     if (!req.user || !ConnectionListMultitenants[req.user]) {
       return res.status(500).json({ message: "Invalid tenant information" });
     } 
